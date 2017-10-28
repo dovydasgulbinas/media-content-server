@@ -1,0 +1,34 @@
+Alias / /var/lib/docker/volumes/apache-conf-vol/_data/apache/site-confs/namas.duckdns.org.443.conf
+
+<VirtualHost *:443>
+    ServerName www.namas.duckdns.org
+    ServerAlias www.namas.duckdns.org
+    SSLEngine on
+    SSLCertificateFile "/config/keys/cert.crt"
+    SSLCertificateKeyFile "/config/keys/cert.key"
+  DocumentRoot /config/www/
+
+    <Directory "/config/www/">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride all
+            Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    DocumentRoot /config/www/
+
+    <Directory "/config/www/">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride all
+            Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+#<VirtualHost *:80>
+#        ServerName portal.mozipo.com
+#        Redirect "/" "https://portal.mozipo.com/"
+#</VirtualHost>
