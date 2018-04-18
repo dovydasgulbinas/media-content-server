@@ -1,31 +1,42 @@
 #!/bin/bash
 
-# chmod before run
-#chmod 774 jackett.dock.sh
-
 # https://hub.docker.com/r/linuxserver/jackett/
 
+uname='jackett'
+homedir="/opt/$uname"
+uid=5004
+gid=5000
+cname=$uname  # docker container name
 
-# uncoment if you want a user created
-#sudo useradd -u 2000 jackett
+
+if getent passwd $uname > /dev/null 2>&1; then
+    echo "User '$uname' already exists"
+else
+    echo "User '$uname' does not exist we will create directories"
+		sudo mkdir $homedir
+		sudo chown $uid:$gid $homedir
+		sudo useradd -u $uid -g $gid $uname --home-dir $homedir
+fi
+
+# container specific params
+cdir="$homedir/config"
+ddir='/media/raid/media/downloads'
+
+sudo su - $uname -c "mkdir -p $cdir"
 
 
-docker volume create jackett-conf-vol
-docker volume create jackett-tmp-vol
-docker volume ls
-
-docker volume inspect jackett-conf-vol 
-docker volume inspect jackett-tmp-vol 
-
+# remove container with same name if present
+docker stop $cname
+docker rm $cname
 
 docker create \
---name=jackett \
--v jackett-conf-vol:/config \
--v jackett-tmp-vol:/downloads \
--e PGID=2000 -e PUID=2000  \
+--name=$cname \
+-v $cdir:/config \
+-v $ddir:/downloads \
+-e PGID=$gid -e PUID=$uid  \
 -e TZ='Europe/Vilnius' \
 -v /etc/localtime:/etc/localtime:ro \
 -p 9117:9117 \
 linuxserver/jackett
 
-docker start jackett
+docker start $cname

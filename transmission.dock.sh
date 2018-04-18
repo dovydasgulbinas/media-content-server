@@ -2,16 +2,21 @@
 
 #https://hub.docker.com/r/linuxserver/transmission/
 
-# uncoment if you want a user created
-#sudo useradd -u 5001 transmission
-
 uname='transmission'
 homedir="/opt/$uname"
 uid=5001
 gid=5000
 cname=$uname  # docker container name
 
-sudo useradd -u $uid $uname --home-dir $homedir
+
+if getent passwd $uname > /dev/null 2>&1; then
+    echo "User '$uname' already exists"
+else
+    echo "User '$uname' does not exist we will create directories"
+		sudo mkdir $homedir
+		sudo chown $uid:$gid $homedir
+		sudo useradd -u $uid -g $gid $uname --home-dir $homedir
+fi
 
 # container specific params
 cdir="$homedir/config"
