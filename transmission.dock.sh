@@ -3,30 +3,38 @@
 #https://hub.docker.com/r/linuxserver/transmission/
 
 # uncoment if you want a user created
-#sudo useradd -u 1999 transmission
+#sudo useradd -u 5001 transmission
 
-docker volume create transmission-conf-vol
-docker volume create transmission-downloads-vol
-docker volume create transmission-watch-vol
+uname='transmission'
+homedir="/opt/$uname"
+uid=5001
+gid=5000
+cname=$uname  # docker container name
 
-docker volume ls
-docker volume inspect transmission-conf-vol
-docker volume inspect transmission-downloads-vol
-docker volume inspect transmission-watch-vol
+sudo useradd -u $uid $uname --home-dir $homedir
+
+# container specific params
+cdir="$homedir/config"
+ddir='/media/raid/media/downloads'
+wdir="$ddir/watch"
+
+sudo su - $uname -c "mkdir -p $cdir"
+sudo su - $uname -c "mkdir -p $wdir"
+
 
 # remove container with same name if present
-docker stop transmission
-docker rm transmission
+docker stop $cname
+docker rm $cname
 
-docker create --name=transmission \
--v transmission-conf-vol:/config \
--v transmission-downloads-vol:/downloads \
--v transmission-watch-vol:/watch \
--e PGID=1999 -e PUID=1999 \
+docker create --name=$cname \
+-v $cdir:/config \
+-v $ddir:/downloads \
+-v $wdir:/watch \
+-e PGID=$gid -e PUID=$uid \
 -e TZ='Europe/Vilnius' \
 -p 9091:9091 -p 51413:51413 \
 -p 51413:51413/udp \
 linuxserver/transmission
 
-docker start transmission
+docker start $cname
 docker ps 
