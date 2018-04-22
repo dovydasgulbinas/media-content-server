@@ -2,36 +2,23 @@
 
 #https://hub.docker.com/r/linuxserver/transmission/
 
-uname='transmission'
-homedir="/opt/$uname"
-uid=5001
-gid=5000
-cname=$uname  # docker container name
-
-
-if getent passwd $uname > /dev/null 2>&1; then
-    echo "User '$uname' already exists"
-else
-    echo "User '$uname' does not exist we will create directories"
-		sudo mkdir $homedir
-		sudo chown $uid:$gid $homedir
-		sudo useradd -u $uid -g $gid $uname --home-dir $homedir
-fi
+source media-user.sh
 
 # container specific params
-cdir="$homedir/config"
+
+cname='transmission' 
+cdir="$homedir/$cname-config"
 ddir='/media/raid/media/downloads'
-wdir="$ddir/watch"
+wdir="$ddir"
 
 sudo su - $uname -c "mkdir -p $cdir"
 sudo su - $uname -c "mkdir -p $wdir"
-
 
 # remove container with same name if present
 docker stop $cname
 docker rm $cname
 
-docker create --name=$cname \
+docker run --name=$cname \
 -v $cdir:/config \
 -v $ddir:/downloads \
 -v $wdir:/watch \
