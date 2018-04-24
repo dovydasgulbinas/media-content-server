@@ -3,6 +3,7 @@ uname='media'
 homedir="/opt/$uname"
 uid=5000
 gid=5000
+tz='Europe/Vilnius'
 
 
 if getent passwd $uname > /dev/null 2>&1; then
