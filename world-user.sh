@@ -1,8 +1,8 @@
 
-uname='media'
+uname='world'
 homedir="/opt/$uname"
-uid=5000
-gid=5000
+uid=5200
+gid=5200
 tz='Europe/Vilnius'
 
 
