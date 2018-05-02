@@ -1,5 +1,5 @@
 
-# 1. installing pip for python[1][1]
+# 1. installing pip for python[1]
 
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python get-pip.py
@@ -22,8 +22,9 @@
     sudo chown world:world /opt/world/access/.htpasswd 
 
 /opt/world/access/.htpasswd 
-:   path where to store .htpasswd file, your will vary. make sure `.htpasswd` file
-not in your web (wwww) directory, else bad people may download it 
+:   path to where you store your `.htpasswd` file, your path will probably be
+different. make sure `.htpasswd` file not in your web (wwww) directory, else 
+bad people may download it 
 
 
 [1]: https://pip.pypa.io/en/stable/installing/
