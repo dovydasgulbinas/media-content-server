@@ -4,6 +4,7 @@ homedir="/opt/$uname"
 uid=5000
 gid=5000
 tz='Europe/Vilnius'
+ip='192.168.0.8'
 
 
 if getent passwd $uname > /dev/null 2>&1; then
