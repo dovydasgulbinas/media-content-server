@@ -8,10 +8,12 @@ nginx_certdir='/opt/world/nginx-config/keys'
 mode='renew'
 
 sudo docker stop $cname
-sudo certbot $mode -n --standalone $domains
+# call live bellow on first run
+#sudo certbot $mode -n --standalone $domains
+sudo certbot $mode 
 sudo cp "$certdir/fullchain.pem" $nginx_certdir
 sudo cp "$certdir/privkey.pem" $nginx_certdir
-sudo chown $uname:$uname "$nginx_certdir/*"
+sudo chown -R $uname:$uname "$nginx_certdir"
 sudo chmod 600 "$nginx_certdir/privkey.pem"
 sudo docker start $cname
 
