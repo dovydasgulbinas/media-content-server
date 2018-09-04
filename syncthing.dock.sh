@@ -16,10 +16,18 @@ mask='022'
 cdir="$homedir/$cname-config"
 syncdir="$SHARES_BASE/Sync"
 tabletdir="$SHARES_BASE/tablet"
+phonedir="$SHARES_BASE/Phone"
+calibredir="$SHARES_BASE/Books"
+audiobooks="$SHARES_BASE/AudioBooks"
+# musicdir="$SHARES_BASE/Calibre"  # Mount different than $SHARES_BASE
 
 sudo su - $uname -c "mkdir -p $cdir"
 sudo su - $uname -c "mkdir -p $syncdir"
 sudo su - $uname -c "mkdir -p $tabletdir"
+sudo su - $uname -c "mkdir -p $phonedir"
+sudo su - $uname -c "mkdir -p $calibredir"
+sudo su - $uname -c "mkdir -p $audiobooks"
+# sudo su - $uname -c "mkdir -p $musicdir"
 
 
 # remove container with same name if present
@@ -35,6 +43,9 @@ docker run --name=$cname \
 -v $cdir:/config \
 -v $syncdir:/Sync \
 -v $tabletdir:/tablet \
+-v $phonedir:/Phone \
+-v $calibredir:/Books \
+-v $audiobooks:/AudioBooks \
 -it linuxserver/syncthing
 
 docker start $cname
