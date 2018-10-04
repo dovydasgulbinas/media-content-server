@@ -9,7 +9,7 @@ source media-user.sh
 cname='musicbr' 
 port=5000
 cdir="$homedir/$cname-config"
-ddir="/media/raid/media/$cname-music"
+ddir="/media/raid/media/ytdl-music"
 
 sudo su - $uname -c "mkdir -p $cdir"
 sudo su - $uname -c "mkdir -p $ddir"

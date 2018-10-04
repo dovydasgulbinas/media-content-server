@@ -10,6 +10,7 @@ cname='zeronet'
 port_service=15441
 port_ui=43110
 tor='true'
+listen_ip='192.168.0.8'
 
 ddir="/media/raid/media/downloads/$cname-dl"
 
@@ -20,7 +21,7 @@ sudo su - $uname -c "mkdir -p $ddir"
 docker stop $cname
 docker rm $cname
 
-docker run --name=$cname -d -e "ENABLE_TOR=$tor" -v $ddir:/root/data -p $port_service:15441 -p "0.0.0.0:$port_ui:43110" nofish/zeronet
+docker run --name=$cname -d -e "ENABLE_TOR=$tor" -v $ddir:/root/data -p $port_service:15441 -p "$listen_ip:$port_ui:43110" nofish/zeronet
 
 docker start $cname
 docker ps

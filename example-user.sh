@@ -3,14 +3,13 @@ source global-settings.sh
 
 # Customize here
 
-uname='world'
+uname='example'
 homedir="/opt/$uname"
-uid=5200
-gid=5200
+uid=7000
+gid=7000
 tz=$TZ
 skeldir=$SKEL_DIR
 
 
 # this function is sourced from `global-settings.sh`
-create_user $uname $skeldir $homedir $uid $gid
-
+create_user $uname $skeldir $homedir $uid $gid 

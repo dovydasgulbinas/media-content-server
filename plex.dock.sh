@@ -9,7 +9,7 @@ cname='plex'
 cdir="$homedir/$cname-config"
 mdir="/media/raid/media/movies"
 sdir="/media/raid/media/series"
-mudir="/media/raid/media/music"
+mudir="/media/raid/media/beets-music"
 ytdir="/media/raid/media/youtube-videos"
 
 

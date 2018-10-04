@@ -1,3 +1,6 @@
+#!/bin/bash
+
+source global-settings.sh
 
 uname='media'
 homedir="/opt/$uname"

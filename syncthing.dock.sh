@@ -6,7 +6,8 @@ source media-user.sh
 
 # container specific params
 
-SHARES_BASE="/media/raid/media/sync-shares"
+MEDIA_BASE="/media/raid/media"
+SHARES_BASE="$MEDIA_BASE/sync-shares"
 
 cname='syncthing' 
 port=8384
@@ -19,6 +20,8 @@ tabletdir="$SHARES_BASE/tablet"
 phonedir="$SHARES_BASE/Phone"
 calibredir="$SHARES_BASE/Books"
 audiobooks="$SHARES_BASE/AudioBooks"
+projects="$SHARES_BASE/Projects"
+musicdir="$MEDIA_BASE/beets-music"
 # musicdir="$SHARES_BASE/Calibre"  # Mount different than $SHARES_BASE
 
 sudo su - $uname -c "mkdir -p $cdir"
@@ -27,7 +30,8 @@ sudo su - $uname -c "mkdir -p $tabletdir"
 sudo su - $uname -c "mkdir -p $phonedir"
 sudo su - $uname -c "mkdir -p $calibredir"
 sudo su - $uname -c "mkdir -p $audiobooks"
-# sudo su - $uname -c "mkdir -p $musicdir"
+sudo su - $uname -c "mkdir -p $projects"
+sudo su - $uname -c "mkdir -p $musicdir"
 
 
 # remove container with same name if present
@@ -46,6 +50,8 @@ docker run --name=$cname \
 -v $phonedir:/Phone \
 -v $calibredir:/Books \
 -v $audiobooks:/AudioBooks \
+-v $projects:/Projects \
+-v $musicdir:/Music \
 -it linuxserver/syncthing
 
 docker start $cname
