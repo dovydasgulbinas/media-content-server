@@ -2,7 +2,7 @@
 
 # https://hub.docker.com/r/linuxserver/calibre-web/
 
-source world-user.sh
+source media-user.sh
 
 # container specific params
 
