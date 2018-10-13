@@ -3,10 +3,10 @@ source global-settings.sh
 
 # Customize here
 
-uname='example'
+uname='fabric'
 homedir="/opt/$uname"
-uid=7000
-gid=7000
+uid=4000
+gid=4000
 tz=$TZ
 skeldir=$SKEL_DIR
 
