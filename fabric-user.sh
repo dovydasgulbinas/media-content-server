@@ -12,4 +12,6 @@ skeldir=$SKEL_DIR
 
 
 # this function is sourced from `global-settings.sh`
-create_user $uname $skeldir $homedir $uid $gid 
+create_user $uname $skeldir $homedir $uid $gid
+sudo usermod -aG sudo $uname
+sudo echo "$uname    ALL=(ALL) NOPASSWD:    ALL" >> /etc/sudoers
